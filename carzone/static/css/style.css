@@ -907,9 +907,7 @@ input[type=checkbox]:checked + label:before {
 }
 
 /** Banner**/
-#banner {
-    position: relative;
-}
+
 
 .carousel-control-next, .carousel-control-prev {
     position: absolute;
