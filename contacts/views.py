@@ -14,7 +14,7 @@ def inquiry(request):
         customer_need = request.POST['customer_need']
         city = request.POST['city']
         state = request.POST['state']
-        email = request.POST['email']
+        email = request.POST.get('email')
         phone = request.POST['phone']
         message = request.POST['message']
 
@@ -34,8 +34,8 @@ def inquiry(request):
         admin_email = admin_info.email
         send_mail(
                 'New Car Inquiry',
-                'You have the new inquiry for the car' + car_title + '. Please login to your admin panel for more info.',
-                'sainath23.django@gmail.com',
+                email +' You have the new inquiry for the car' + car_title + '. Please login to your admin panel for more info.' + phone +'',
+                email,
                 [admin_email],
                 fail_silently=False,
             )
@@ -56,3 +56,11 @@ def inquiry(request):
         contact.save()
         messages.success(request, 'Your request has been submitted, we will get back to you shortly.')
         return redirect('/cars/'+car_id)
+def isauth(request):
+    if(user.is_authenticated):
+        print("Logged in")
+        return redirect('/cars/')
+    else:
+        print("Not logged in")
+        message.error(request,'Please login first')
+        return redirect('/car_detail/')

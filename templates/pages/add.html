@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block title %} | About Us {% endblock %}
+{% block content %}
+{% load static %}
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>About Us</h1>
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="active">About Us</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<style>
+.message
+{
+padding:30px;
+margin:70px;
+}
+  </style>
+
+  <div class="sidebar-center" >
+    <div class="message">
+      <p id="message"></p>
+    <button class="btn btn-outline-danger bomd btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Send your car details</button>
+{% if user.is_authenticated %}
+<br><br>
+    <br>
+    <h3 class="sidebar-title"></h3>
+    <div class="modal fade" id="inquiryModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="contact-dealer modal-header">
+            <!-- <h5 class="modal-title" id="inquiryModalLabel">Contact Dealer</h5> -->
+            <center><img src="{% static 'img/logos/logo-black-white.png' %}"></center>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'add' %}" enctype="multipart/form-data" method="POST">
+              {% csrf_token %}
+
+              {% if user.is_authenticated %}
+                <input type="hidden" name="user_id" value="{{user.id}}">
+              {% else %}
+                <input type="hidden" name="user_id" value="0">
+              {% endif %}
+
+              <input type="hidden" name="car_id" value="{{single_car.id}}">
+                <div class="form-group">
+                  <label for="name" class="col-form-label">Hello, My Name is</label>
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" name="first_name" class="form-control" placeholder="First Name"
+                      {% if user.is_authenticated %} value="{{user.first_name}}"  {% endif %} required>
+                    </div>
+                    <div class="col">
+                      <input type="text" name="last_name" class="form-control" placeholder="Last Name"
+                      {% if user.is_authenticated %} value="{{user.last_name}}"  {% endif %} required>
+                    </div>
+                  </div>
+                </div>
+                  <div class="form-group">
+                    <label for="">Add Your Car Details</label>
+                    </div>
+
+                <div class="form-group">
+                  <input type="text" name="car_title" class="form-control" value="" placeholder="Enter Your Car Name">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="car_model" class="form-control" value="" placeholder="Enter Model Id" patte>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="year" class="form-control" value="" placeholder="Enter Car owned year" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="condition" class="form-control" value="" placeholder="Enter your car condition.The condition should be Used/New" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="km" class="form-control" value="" placeholder="Enter Km" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="transmission" class="form-control" value="" placeholder="Enter Transmission" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="ownedcount" class="form-control" value="" placeholder="How many times car has been resaled" require>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="age" class="form-control" value="" placeholder="Age of the car" required>
+                </div>
+                <div class="form">
+
+                  <label>Has Insured?<br><br>
+                    Yes &nbsp<input type="radio" id="number" name="insurancedone" class="" value="" ><br>
+                    No &nbsp&nbsp<input type="radio" id="number" name="insurancedone" class="" value="" >
+
+                </div>
+                <div class="col">
+                  <h6>Upload pic 2</h6>
+                  <input type="file" name="pic1" id='form'class="form-control" placeholder="State" required>
+                </div>
+                <br>
+                <div class="col">
+                  <h6>Upload pic 1</h6>
+                  <input type="file" name="pic2" id='form'class="form-control" placeholder="State" required>
+                </div>
+                <style>
+                #form
+                {
+                  height:44px;
+                  width:250px;
+                }
+                </style>
+                <div class="form-group">
+                  <label for="name" class="col-form-label">I live in</label>
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" name="city" class="form-control" placeholder="City" required>
+                    </div>
+                    <div class="col">
+                      <input type="text" name="state" class="form-control" placeholder="State" required>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col">
+                        <label for="name" class="col-form-label">You can reach me by email at</label>
+                      <input type="email" name="email" class="form-control" placeholder="Email Address"
+                      {% if user.is_authenticated %} value="{{user.email}}"  {% endif %} required>
+                    </div>
+                    <div class="col">
+                        <label for="phone" class="col-form-label">or by phone at</label>
+                      <input type="text" name="phone" placeholder="Phone Number (optional)" class="form-control">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="message" class="col-form-label">Add comments</label>
+                  <textarea name="message" class="form-control" placeholder="Enter your message here (optional)"></textarea>
+                </div>
+                <hr>
+                <input type="submit" value="Send" class="btn btn-block btn-danger" onclick="errorMessage()">
+            </form>
+          </div>
+        </div>
+
+        {% else %}
+
+    <script type="text/javascript">
+      document.getElementById("message").innerHTML = "Please Login First";
+    </script>
+        {% endif %}
+      </div>
+    </div>
+    </div>
+  
+{% endblock %}

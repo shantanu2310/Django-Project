@@ -28,10 +28,13 @@
             <div class="col-lg-8 col-md-12">
 
                 <div class="row">
+
                   {% for car in cars %}
+                  {% if user.is_authenticated %}
                     <div class="col-lg-6 col-md-6">
                         <div class="car-box-3">
                             <div class="car-thumbnail">
+
                                 <a href="{% url 'car_detail' car.id %}" class="car-img">
                                     <div class="tag">For Rent</div>
                                     <div class="price-box">
@@ -39,6 +42,9 @@
                                     </div>
                                     <img class="d-block w-100" src="{{car.car_photo.url}}" alt="car" style="min-height: 262px; max-height: 262px;">
                                 </a>
+
+
+
                                 <div class="carbox-overlap-wrapper">
                                     <div class="overlap-box">
                                         <div class="overlap-btns-area">
@@ -72,6 +78,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="detail">
                                 <h1 class="title">
                                     <a href="{% url 'car_detail' car.id %}">{{car.car_title}}</a>
@@ -92,9 +99,11 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                   {% endfor %}
                 </div>
 
+                {% if user.is_authenticated %}
                 <!-- Page navigation start -->
                 <div class="pagination-box p-box-2 text-center">
                     <nav aria-label="Page navigation example">
@@ -184,7 +193,11 @@
                             </div>
                         </form>
                     </div>
-
+                    {% else %}
+                    <script type="text/javascript">
+                      alert("Please login first to view the cars");
+                    </script>
+                    {% endif %}
                     <!-- Question start -->
                     <div class="widget question widget-3">
                         <h5 class="sidebar-title">Follow us</h5>

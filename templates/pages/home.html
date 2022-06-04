@@ -38,6 +38,7 @@
             </div>
         </div>
         <!-- Search box 3 start -->
+        {% if user.is_authenticated %}
         <div class="search-box-4 sb-8">
             <form action="{% url 'search' %}" method="">
                 <div class="form-group">
@@ -79,9 +80,12 @@
                                 <div class="clearfix"></div>
                             </div>
                 <div class="form-group">
+
                     <button class="btn btn-block button-theme btn-md">
+
                         <i class="fa fa-search"></i> Search
                     </button>
+
                 </div>
             </form>
         </div>
@@ -319,22 +323,43 @@
     </div>
 </div> -->
 <!-- Our team end -->
-
-<!-- Intro section start -->
 <div class="intro-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-8 col-sm-12">
                 <div class="intro-text">
-                    <h3>Do You Have Questions ?</h3>
+                    <h3>Do You Have Any Questions</h3>
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-12">
-                <a href="{% url 'contact' %}" class="btn btn-md">Get in Touch</a>
+                <a href="{% url 'contact' %}" class="btn btn-md">Contact Us</a>
             </div>
         </div>
     </div>
 </div>
+{% else %}
+<script type="text/javascript">
+  alert("Please login/register first to view the cars and functionalities")
+
+</script>
+<div class="intro-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="intro-text">
+                    <h3>Register Here</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12">
+                <a href="{% url 'register' %}" class="btn btn-md">Register</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+<!-- Intro section start -->
+
 <!-- Intro section end -->
 
 
